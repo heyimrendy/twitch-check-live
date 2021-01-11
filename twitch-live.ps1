@@ -31,7 +31,7 @@ try {
                 Write-Host " ($($nodeValue.node.stream.game.displayName))" -NoNewline -ForeGroundColor Gray
                 Write-Host " | " -NoNewline
                 Write-Host "$("{0:N0}" -f $nodeValue.node.stream.viewersCount)" -NoNewline -ForegroundColor Red
-                Write-Host " $(($nodeValue.node.stream.viewersCount -lt 2) ? 'viewer' : 'viewers') " -NoNewline
+                Write-Host " $(($nodeValue.node.stream.viewersCount -ne 1) ? 'viewers' : 'viewer') " -NoNewline
                 Write-Host "| $((New-TimeSpan -End "$((Get-Date).ToUniversalTime())" -Start $nodeValue.node.stream.createdAt).ToString("hh\:mm\:ss"))"
             }
         }
