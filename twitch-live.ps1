@@ -32,7 +32,12 @@ try {
                 Write-Host " | " -NoNewline
                 Write-Host "$("{0:N0}" -f $nodeValue.node.stream.viewersCount)" -NoNewline -ForegroundColor Red
                 Write-Host " $(($nodeValue.node.stream.viewersCount -ne 1) ? 'viewers' : 'viewer') " -NoNewline
-                Write-Host "| $((New-TimeSpan -End "$((Get-Date).ToUniversalTime())" -Start $nodeValue.node.stream.createdAt).ToString("hh\:mm\:ss"))"
+                $uptimeTotal = New-TimeSpan -End "$((Get-Date).ToUniversalTime())" -Start $nodeValue.node.stream.createdAt
+                if ($uptimeTotal.Days -lt 1) {
+                    Write-Host "| $($uptimeTotal.ToString("hh\:mm\:ss"))"
+                } else {
+                    Write-Host "| $([Math]::Truncate($uptimeTotal.TotalHours)):$($uptimeTotal.ToString("mm\:ss"))"
+                }
             }
         }
     } else {
